@@ -5,3 +5,4 @@ artifacts/
 cache/
 .next/
 typechain-types/
+*:Zone.Identifier
