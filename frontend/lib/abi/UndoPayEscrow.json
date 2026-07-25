@@ -1,0 +1,145 @@
+[
+  {
+    "type": "constructor",
+    "inputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "createPayment",
+    "inputs": [{ "name": "receiver", "type": "address" }],
+    "outputs": [{ "name": "paymentId", "type": "uint256" }],
+    "stateMutability": "payable"
+  },
+  {
+    "type": "function",
+    "name": "reclaimPayment",
+    "inputs": [{ "name": "paymentId", "type": "uint256" }],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "releasePayment",
+    "inputs": [{ "name": "paymentId", "type": "uint256" }],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "getPayment",
+    "inputs": [{ "name": "paymentId", "type": "uint256" }],
+    "outputs": [
+      { "name": "sender", "type": "address" },
+      { "name": "receiver", "type": "address" },
+      { "name": "amount", "type": "uint256" },
+      { "name": "createdAt", "type": "uint256" },
+      { "name": "expiresAt", "type": "uint256" },
+      { "name": "status", "type": "uint8" }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getTimeRemaining",
+    "inputs": [{ "name": "paymentId", "type": "uint256" }],
+    "outputs": [{ "name": "", "type": "uint256" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "paymentCounter",
+    "inputs": [],
+    "outputs": [{ "name": "", "type": "uint256" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "payments",
+    "inputs": [{ "name": "", "type": "uint256" }],
+    "outputs": [
+      { "name": "sender", "type": "address" },
+      { "name": "receiver", "type": "address" },
+      { "name": "amount", "type": "uint256" },
+      { "name": "createdAt", "type": "uint256" },
+      { "name": "expiresAt", "type": "uint256" },
+      { "name": "status", "type": "uint8" }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "RECLAIM_WINDOW",
+    "inputs": [],
+    "outputs": [{ "name": "", "type": "uint256" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "paused",
+    "inputs": [],
+    "outputs": [{ "name": "", "type": "bool" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "owner",
+    "inputs": [],
+    "outputs": [{ "name": "", "type": "address" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "pause",
+    "inputs": [],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "unpause",
+    "inputs": [],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "event",
+    "name": "PaymentCreated",
+    "inputs": [
+      { "name": "paymentId", "type": "uint256", "indexed": true },
+      { "name": "sender", "type": "address", "indexed": true },
+      { "name": "receiver", "type": "address", "indexed": true },
+      { "name": "amount", "type": "uint256", "indexed": false },
+      { "name": "expiresAt", "type": "uint256", "indexed": false }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "PaymentReclaimed",
+    "inputs": [
+      { "name": "paymentId", "type": "uint256", "indexed": true },
+      { "name": "sender", "type": "address", "indexed": true },
+      { "name": "amount", "type": "uint256", "indexed": false }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "PaymentReleased",
+    "inputs": [
+      { "name": "paymentId", "type": "uint256", "indexed": true },
+      { "name": "receiver", "type": "address", "indexed": true },
+      { "name": "amount", "type": "uint256", "indexed": false }
+    ],
+    "anonymous": false
+  },
+  { "type": "error", "name": "InvalidReceiver", "inputs": [] },
+  { "type": "error", "name": "ZeroAmount", "inputs": [] },
+  { "type": "error", "name": "PaymentNotFound", "inputs": [] },
+  { "type": "error", "name": "NotSender", "inputs": [] },
+  { "type": "error", "name": "PaymentExpired", "inputs": [] },
+  { "type": "error", "name": "PaymentNotExpired", "inputs": [] },
+  { "type": "error", "name": "InvalidStatus", "inputs": [] },
+  { "type": "error", "name": "TransferFailed", "inputs": [] }
+]
