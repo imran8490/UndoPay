@@ -52,9 +52,24 @@ export default function PaymentCard({ paymentId }: Props) {
 
   // Refetch payment details once either action confirms, so the
   // status badge updates without a manual page reload.
-  if (reclaimConfirmed || releaseConfirmed) {
-    refetch();
-  }
+  // Refetch payment details the instant either action confirms, so the
+  // status badge updates right away instead of waiting for the next
+  // poll tick. Guarded so it fires once per confirmation, not every
+  // render.
+  const hasRefetchedForRelease = useRef(false);
+  const hasRefetchedForReclaim = useRef(false);
+  useEffect(() => {
+    if (releaseConfirmed && !hasRefetchedForRelease.current) {
+      hasRefetchedForRelease.current = true;
+      refetch();
+    }
+  }, [releaseConfirmed, refetch]);
+  useEffect(() => {
+    if (reclaimConfirmed && !hasRefetchedForReclaim.current) {
+      hasRefetchedForReclaim.current = true;
+      refetch();
+    }
+  }, [reclaimConfirmed, refetch]);
 
   const isPending = payment?.status === Status.Pending;
   const expiresAtSeconds = payment ? Number(payment.expiresAt) : 0;
