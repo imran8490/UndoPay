@@ -41,7 +41,7 @@ export function useCreatePayment() {
           data: log.data,
           topics: log.topics,
         });
-        paymentId = (decoded.args as { paymentId: bigint }).paymentId;
+        paymentId = (decoded.args as unknown as { paymentId: bigint }).paymentId;
         break;
       } catch {
         // Not the event we're looking for — skip.
