@@ -1,21 +1,31 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface CountdownTimerProps {
   expiresAt: number; // Unix timestamp (seconds)
+  onExpire?: () => void; // optional callback fired once when the timer hits 0
 }
 
 export default function CountdownTimer({
   expiresAt,
+  onExpire,
 }: CountdownTimerProps) {
   const [timeLeft, setTimeLeft] = useState(0);
+  const hasFiredExpire = useRef(false);
 
   useEffect(() => {
+    hasFiredExpire.current = false;
+
     const updateTimer = () => {
       const now = Math.floor(Date.now() / 1000);
       const remaining = Math.max(expiresAt - now, 0);
       setTimeLeft(remaining);
+
+      if (remaining === 0 && !hasFiredExpire.current) {
+        hasFiredExpire.current = true;
+        onExpire?.();
+      }
     };
 
     updateTimer();
@@ -23,7 +33,7 @@ export default function CountdownTimer({
     const interval = setInterval(updateTimer, 1000);
 
     return () => clearInterval(interval);
-  }, [expiresAt]);
+  }, [expiresAt, onExpire]);
 
   const minutes = Math.floor(timeLeft / 60);
   const seconds = timeLeft % 60;
