@@ -25,6 +25,7 @@ export default function PaymentCard({ paymentId }: Props) {
   // seed useState with Date.now()/Math.random() when the value affects
   // what gets rendered.
   const [nowSeconds, setNowSeconds] = useState<number | null>(null);
+  const [localExpired, setLocalExpired] = useState(false);
   useEffect(() => {
     setNowSeconds(Math.floor(Date.now() / 1000));
     const interval = setInterval(() => {
