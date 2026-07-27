@@ -35,8 +35,20 @@ const config: HardhatUserConfig = {
     },
   },
   etherscan: {
-    apiKey: ETHERSCAN_API_KEY,
+  apiKey:  {
+arcTestnet: "no_api_key_needed",
   },
+customChains: [
+{
+network: "arcTestnet",
+chainId: 5042002,
+urls: {
+apiURL: "https://testnet.arcscan.app/api",
+browserURL: "https://testnet.arcscan.app",
+},
+},
+],
+},
 };
 
 export default config;
